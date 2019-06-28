@@ -40,5 +40,17 @@ class ScannerTest {
 		);		
 		
 	}
+	
+	
+	@Test
+	public void Scanner_checkSumTest() {
+		
+		StringBuffer buffer = new StringBuffer("010000001");
+		int checkSum = scanner.performCheckSum(buffer);
+			
+		System.out.println("checkSum returned " + checkSum);
+		
+		assertEquals(0, checkSum);
+	}
 
 }

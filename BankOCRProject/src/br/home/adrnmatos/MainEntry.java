@@ -4,8 +4,10 @@ public class MainEntry {
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner();
-		// test
-		scanner.scan("");
+
+		StringBuffer buffer = new StringBuffer("010000001");
+		
+		System.out.println("checkSum returned " + scanner.performCheckSum(buffer));
 	
 	}
 

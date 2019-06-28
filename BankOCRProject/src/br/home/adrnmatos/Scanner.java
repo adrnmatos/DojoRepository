@@ -46,6 +46,9 @@ public class Scanner {
 
 	public String scan(String input) {
 		
+		if(input.length() != 81)
+			return "NaN";
+		
 		StringBuffer digits = new StringBuffer();
 
 		for(int k=0; k<9; k++) {
@@ -94,7 +97,23 @@ public class Scanner {
 						
 		}
 		
-		return digits.toString();
+		if(performCheckSum(digits) == 0) {
+			return digits.toString();
+		} else {
+			// try to fix
+			return "NaN";
+		}
 		
+
+	}
+	
+	
+	public int performCheckSum(StringBuffer digits) {
+		int sum = 0;
+		for(int i=8; i>=0; i--) {
+			sum += (i+1) * Character.getNumericValue(digits.charAt(i));
+		}
+
+		return sum % 11;
 	}
 }
