@@ -26,7 +26,7 @@ public class Scanner {
 	                     "|_ "+
 			             " _|";
 	
-	final String seis = "   "+
+	final String seis = " _ "+
 	                    "|_ "+
 			            "|_|";
 	
@@ -40,7 +40,7 @@ public class Scanner {
 	
 	final String nove = " _ "+
 	                    "|_|"+
-			            "  |";
+			            " _|";
 
 
 
@@ -93,27 +93,43 @@ public class Scanner {
 			case nove:
 				digits.append("9");
 				break;
+			default:
+				digits.append("?");
 			}
 						
 		}
 		
-		if(performCheckSum(digits) == 0) {
-			return digits.toString();
-		} else {
-			// try to fix
-			return "NaN";
-		}
 		
+		int checkSum = performCheckSum(digits);
+		
+		if(checkSum == 0) {
+			return digits.toString();
+		} else if(checkSum == -1){
+			return "ILL";
+		} else {
+			return "ERR";
+		}
 
 	}
 	
-	
+		
 	public int performCheckSum(StringBuffer digits) {
 		int sum = 0;
 		for(int i=8; i>=0; i--) {
-			sum += (i+1) * Character.getNumericValue(digits.charAt(i));
+			int numericValue = Character.getNumericValue(digits.charAt(i));
+			if(numericValue == -1)
+				return -1;
+			sum += (i+1) * numericValue;
 		}
 
 		return sum % 11;
 	}
+	
+	
+	public String fixIllString(StringBuffer digits) {
+		
+		
+		return "010000001";
+	}
+	
 }

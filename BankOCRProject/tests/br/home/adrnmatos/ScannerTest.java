@@ -23,7 +23,7 @@ class ScannerTest {
 		
 		assertAll(
 				() -> assertEquals("070032000", scanner.scan(" _  _  _  _  _  _  _  _  _ " + 
-					       									 "| |  || || | _| _|| || || |" + 
+					       									 "| || || || | _| _|| || || |" + 
 					       									 "|_|  ||_||_| _||_ |_||_||_|")),
 				
 				() -> assertEquals("070032008", scanner.scan(" _  _  _  _  _  _  _  _  _ " + 
@@ -34,9 +34,9 @@ class ScannerTest {
 							 								 "  |  || || | _| _||_|| || |" + 
 							 								 "  |  ||_||_| _||_   ||_||_|")),
 				
-				() -> assertEquals("571432698", scanner.scan(" _  _        _  _     _  _ " + 
+				() -> assertEquals("571432698", scanner.scan(" _  _        _  _  _  _  _ " + 
 															 "|_   |  ||_| _| _||_ |_||_|" + 
-															 " _|  |  |  | _||_ |_|  ||_|"))
+															 " _|  |  |  | _||_ |_| _||_|"))
 		);		
 		
 	}
@@ -51,6 +51,16 @@ class ScannerTest {
 		System.out.println("checkSum returned " + checkSum);
 		
 		assertEquals(0, checkSum);
+	}
+	
+	
+	public void Scanner_fixIllTest() {
+	
+		StringBuffer buffer = new StringBuffer("0?0000001");
+		
+		String result = scanner.fixIllString(buffer);
+		
+		System.out.println("this test returns " + result);
 	}
 
 }
