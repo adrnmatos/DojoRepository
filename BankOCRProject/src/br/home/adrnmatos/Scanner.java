@@ -2,55 +2,55 @@ package br.home.adrnmatos;
 
 public class Scanner {
 	
-	final String zero = " _ "+
-				        "| |"+
-			            "|_|";
-	
-	final String um = "   "+
-	                  "  |"+
-			          "  |";
-	
-	final String dois = " _ "+
-	                    " _|"+
-			            "|_ ";
-	
-	final String tres = " _ "+
-	                    " _|"+
-			            " _|";
-	
+	final String zero =   " _ "+
+				  	      "| |"+
+				          "|_|";
+				
+	final String um =     "   "+
+						  "  |"+
+	                      "  |";
+				
+	final String dois =   " _ "+
+	       	              " _|"+
+				          "|_ ";
+				
+	final String tres =   " _ "+
+				          " _|"+
+				          " _|";
+				
 	final String quatro = "   "+
-	                      "|_|"+
-		                  "  |";
+				          "|_|"+
+				          "  |";
+				
+	final String cinco =  " _ "+
+				          "|_ "+
+				          " _|";
+				
+	final String seis =   " _ "+
+				          "|_ "+
+				          "|_|";
+				
+	final String sete =   " _ "+
+				          "  |"+
+				          "  |";
+				
+	final String oito =   " _ "+
+				          "|_|"+
+				          "|_|";
+				
+	final String nove =   " _ "+
+				          "|_|"+
+				          " _|";
 	
-	final String cinco = " _ "+
-	                     "|_ "+
-			             " _|";
-	
-	final String seis = " _ "+
-	                    "|_ "+
-			            "|_|";
-	
-	final String sete = " _ "+
-	                    "  |"+
-			            "  |";
-	
-	final String oito = " _ "+
-	                    "|_|"+
-			            "|_|";
-	
-	final String nove = " _ "+
-	                    "|_|"+
-			            " _|";
-
-
-
 	public String scan(String input) {
 		
+		// should throw an exception if at least is not 81 characters 
 		if(input.length() != 81)
 			return "NaN";
 		
 		StringBuffer digits = new StringBuffer();
 
+		// scan all characters and resolve digits
 		for(int k=0; k<9; k++) {
 			StringBuffer digit = new StringBuffer();
 
@@ -101,19 +101,22 @@ public class Scanner {
 		
 		
 		int checkSum = performCheckSum(digits);
-		
+		// valid account number
 		if(checkSum == 0) {
 			return digits.toString();
-		} else if(checkSum == -1){
+		} else 
+			// some digit was not recognized try to fix
+			if(checkSum == -1){
 			return "ILL";
 		} else {
+			// is not an account number try to fix
 			return "ERR";
 		}
 
 	}
 	
 		
-	public int performCheckSum(StringBuffer digits) {
+	private int performCheckSum(StringBuffer digits) {
 		int sum = 0;
 		for(int i=0; i<9; i++) {
 			int numericValue = Character.getNumericValue(digits.charAt(i));

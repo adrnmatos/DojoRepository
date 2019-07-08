@@ -3,6 +3,7 @@ package br.home.adrnmatos;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -19,7 +20,7 @@ class ScannerTest {
 		
 	
 	@Test
-	public void ScannerScan_validInput_returnsExpectedResult() {
+	public void scan_validInput_returnExpectedResult() {
 		
 		assertAll(
 				() -> assertEquals("100000010", scanner.scan("    _  _  _  _  _  _     _ " + 
@@ -40,31 +41,94 @@ class ScannerTest {
 				
 				() -> assertEquals("194675831", scanner.scan("    _     _  _  _  _  _    " + 
 															 "  ||_||_||_   ||_ |_| _|  |" + 
-															 "  | _|  ||_|  | _||_| _|  |"))
-		);		
+															 "  | _|  ||_|  | _||_| _|  |")),
+				
+				() -> assertEquals("000000000", scanner.scan(" _  _  _  _  _  _  _  _  _ " + 
+						                                     "| || || || || || || || || |" + 
+						                                     "|_||_||_||_||_||_||_||_||_|")),
+				
+				() -> assertEquals("123456789", scanner.scan("    _  _     _  _  _  _  _ " + 
+                                                             "  | _| _||_||_ |_   ||_||_|" + 
+                                                             "  ||_  _|  | _||_|  ||_| _|")),
+				
+				() -> assertEquals("000000051", scanner.scan(" _  _  _  _  _  _  _  _    " + 
+                                                             "| || || || || || || ||_   |" + 
+                                                             "|_||_||_||_||_||_||_| _|  |"))
+		);
 		
 	}
 	
-	
-
-	public void Scanner_checkSumTest() {
+	@Disabled
+	@Test
+	public void scan_invalidInput_returnFixedResult() {
 		
-		StringBuffer buffer = new StringBuffer("010000001");
-		int checkSum = scanner.performCheckSum(buffer);
+		assertAll(
+			() -> assertEquals("711111111", scanner.scan("                           " +
+					                                     "  |  |  |  |  |  |  |  |  |" + 
+					                                     "  |  |  |  |  |  |  |  |  |")),
 			
-		System.out.println("checkSum returned " + checkSum);
+			() -> assertEquals("777777177", scanner.scan(" _  _  _  _  _  _  _  _  _ " + 
+					                                     "  |  |  |  |  |  |  |  |  |" + 
+					                                     "  |  |  |  |  |  |  |  |  |")),
+			
+			() -> assertEquals("200800000", scanner.scan(" _  _  _  _  _  _  _  _  _ " + 
+					                                     " _|| || || || || || || || |" + 
+					                                     "|_ |_||_||_||_||_||_||_||_|")),
+			
+			() -> assertEquals("333393333", scanner.scan(" _  _  _  _  _  _  _  _  _ " + 
+					                                     " _| _| _| _| _| _| _| _| _|" + 
+					                                     " _| _| _| _| _| _| _| _| _|")),
+			
+			() -> assertEquals("888888888 AMB ['888886888', '888888880', '888888988']", scanner.scan(" _  _  _  _  _  _  _  _  _ " + 
+					                                                                                 "|_||_||_||_||_||_||_||_||_|" + 
+					                                                                                 "|_||_||_||_||_||_||_||_||_|")),
+			
+			() -> assertEquals("555555555 AMB ['555655555', '559555555']", scanner.scan(" _  _  _  _  _  _  _  _  _ " + 
+					                                                                    "|_ |_ |_ |_ |_ |_ |_ |_ |_ " + 
+					                                                                    " _| _| _| _| _| _| _| _| _|")),
+			
+			() -> assertEquals("666666666 AMB ['666566666', '686666666']", scanner.scan(" _  _  _  _  _  _  _  _  _ " + 
+					                                                                    "|_ |_ |_ |_ |_ |_ |_ |_ |_ " + 
+					                                                                    "|_||_||_||_||_||_||_||_||_|")),
+			
+			() -> assertEquals("999999999 AMB ['899999999', '993999999', '999959999']", scanner.scan(" _  _  _  _  _  _  _  _  _ " + 
+					                                                                                 "|_||_||_||_||_||_||_||_||_|" + 
+					                                                                                 " _| _| _| _| _| _| _| _| _|")),
+			
+			() -> assertEquals("490067715 AMB ['490067115', '490067719', '490867715']", scanner.scan("    _  _  _  _  _  _     _ " + 
+					                                                                                 "|_||_|| || ||_   |  |  ||_ " + 
+					                                                                                 "  | _||_||_||_|  |  |  | _|")),
+			
+			() -> assertEquals("123456789", scanner.scan("    _  _     _  _  _  _  _ " + 
+					                                     " _| _| _||_||_ |_   ||_||_|" + 
+					                                     "  ||_  _|  | _||_|  ||_| _|")),
+			
+			() -> assertEquals("000000051", scanner.scan(" _     _  _  _  _  _  _    " + 
+					                                     "| || || || || || || ||_   |" + 
+					                                     "|_||_||_||_||_||_||_| _|  |")),
+			
+			() -> assertEquals("490867715", scanner.scan("    _  _  _  _  _  _     _ " + 
+					                                     "|_||_|| ||_||_   |  |  | _ " + 
+					                                     "  | _||_||_||_|  |  |  | _|"))
+				
+		);
 		
-		assertEquals(0, checkSum);
 	}
 	
-	
-	public void Scanner_fixIllTest() {
-	
-		StringBuffer buffer = new StringBuffer("0?0000001");
+	@Disabled
+	@Test
+	public void scan_ambiguousInput_returnIllResult() {
 		
-		String result = scanner.fixIllString(buffer);
-		
-		System.out.println("this test returns " + result);
+		assertAll(
+			() -> assertEquals("49006771? ILL", scanner.scan("    _  _  _  _  _  _     _ " + 
+					                                         "|_||_|| || ||_   |  |  | _ " + 
+					                                         "  | _||_||_||_|  |  |  | _|")),
+			
+			() -> assertEquals("1234?678? ILL", scanner.scan("    _  _     _  _  _  _  _ " + 
+					                                         "  | _| _||_| _ |_   ||_||_|" + 
+					                                         "  ||_  _|  | _||_|  ||_| _ "))
+		);
 	}
 
+	
 }
