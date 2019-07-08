@@ -19,30 +19,34 @@ class ScannerTest {
 		
 	
 	@Test
-	public void Scanner_validInput_returnTrue() {
+	public void ScannerScan_validInput_returnsExpectedResult() {
 		
 		assertAll(
-				() -> assertEquals("070032000", scanner.scan(" _  _  _  _  _  _  _  _  _ " + 
-					       									 "| || || || | _| _|| || || |" + 
-					       									 "|_|  ||_||_| _||_ |_||_||_|")),
+				() -> assertEquals("100000010", scanner.scan("    _  _  _  _  _  _     _ " + 
+							                                 "  || || || || || || |  || |" + 
+							                                 "  ||_||_||_||_||_||_|  ||_|")),
 				
-				() -> assertEquals("070032008", scanner.scan(" _  _  _  _  _  _  _  _  _ " + 
-							 								 "| |  || || | _| _|| || ||_|" + 
-							 								 "|_|  ||_||_| _||_ |_||_||_|")),
+				() -> assertEquals("274853000", scanner.scan(" _  _     _  _  _  _  _  _ " + 
+					       									 " _|  ||_||_||_  _|| || || |" + 
+					       									 "|_   |  ||_| _| _||_||_||_|")),
 				
-				() -> assertEquals("170032400", scanner.scan("    _  _  _  _  _     _  _ " + 
-							 								 "  |  || || | _| _||_|| || |" + 
-							 								 "  |  ||_||_| _||_   ||_||_|")),
+				() -> assertEquals("438594711", scanner.scan("    _  _  _  _     _       " + 
+							 								 "|_| _||_||_ |_||_|  |  |  |" + 
+							 								 "  | _||_| _| _|  |  |  |  |")),
 				
-				() -> assertEquals("571432698", scanner.scan(" _  _        _  _  _  _  _ " + 
-															 "|_   |  ||_| _| _||_ |_||_|" + 
-															 " _|  |  |  | _||_ |_| _||_|"))
+				() -> assertEquals("078261430", scanner.scan(" _  _  _  _  _        _  _ " + 
+							 								 "| |  ||_| _||_   ||_| _|| |" + 
+							 								 "|_|  ||_||_ |_|  |  | _||_|")),
+				
+				() -> assertEquals("194675831", scanner.scan("    _     _  _  _  _  _    " + 
+															 "  ||_||_||_   ||_ |_| _|  |" + 
+															 "  | _|  ||_|  | _||_| _|  |"))
 		);		
 		
 	}
 	
 	
-	@Test
+
 	public void Scanner_checkSumTest() {
 		
 		StringBuffer buffer = new StringBuffer("010000001");

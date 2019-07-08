@@ -115,11 +115,11 @@ public class Scanner {
 		
 	public int performCheckSum(StringBuffer digits) {
 		int sum = 0;
-		for(int i=8; i>=0; i--) {
+		for(int i=0; i<9; i++) {
 			int numericValue = Character.getNumericValue(digits.charAt(i));
 			if(numericValue == -1)
 				return -1;
-			sum += (i+1) * numericValue;
+			sum += (9-i) * numericValue;
 		}
 
 		return sum % 11;
