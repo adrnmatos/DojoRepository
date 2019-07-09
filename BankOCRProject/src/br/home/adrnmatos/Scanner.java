@@ -1,5 +1,8 @@
 package br.home.adrnmatos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Scanner {
 	
 	final String zero =   " _ "+
@@ -42,81 +45,68 @@ public class Scanner {
 				          "|_|"+
 				          " _|";
 	
-	public String scan(String input) {
+	
+	private List<String> responses = new ArrayList<>();
+	
+	
+	public String scan(String input) throws Exception {
 		
-		// should throw an exception if at least is not 81 characters 
 		if(input.length() != 81)
-			return "NaN";
-		
+			throw new Exception();
+				
 		StringBuffer digits = new StringBuffer();
-
-		// scan all characters and resolve digits
+		
 		for(int k=0; k<9; k++) {
-			StringBuffer digit = new StringBuffer();
+			StringBuffer singleDigit = new StringBuffer();
 
 			for(int i=0; i<3; i++) {
 				for(int j=0; j<3; j++) {
 					int idx = 27*i+3*k+j;
-					digit.append(input.charAt(idx));
+					singleDigit.append(input.charAt(idx));
 				}			
 			}
 			
-
-			switch (digit.toString()) {
-			case zero:
-				digits.append("0");
-				break;
-			case um:
-				digits.append("1");
-				break;
-			case dois:
-				digits.append("2");
-				break;
-			case tres:
-				digits.append("3");
-				break;
-			case quatro:
-				digits.append("4");
-				break;
-			case cinco:
-				digits.append("5");
-				break;
-			case seis:
-				digits.append("6");
-				break;
-			case sete:
-				digits.append("7");
-				break;
-			case oito:
-				digits.append("8");
-				break;
-			case nove:
-				digits.append("9");
-				break;
-			default:
-				digits.append("?");
-			}
+			String recognizedDigit = recognizeDigit(singleDigit.toString());
+			
+			digits.append(recognizedDigit);
 						
 		}
 		
-		
-		int checkSum = performCheckSum(digits);
-		// valid account number
-		if(checkSum == 0) {
-			return digits.toString();
-		} else 
-			// some digit was not recognized try to fix
-			if(checkSum == -1){
-			return "ILL";
-		} else {
-			// is not an account number try to fix
-			return "ERR";
-		}
+		return fixBuffer(digits.toString());
 
 	}
 	
+	
+	private String recognizeDigit(String singleDigit) {
+
+		switch (singleDigit) {
+			case zero:
+				return "0";
+			case um:
+				return "1";
+			case dois:
+				return "2";
+			case tres:
+				return "3";
+			case quatro:
+				return "4";
+			case cinco:
+				return "5";
+			case seis:
+				return "6";
+			case sete:
+				return "7";
+			case oito:
+				return "8";
+			case nove:
+				return "9";
+			default:
+				return "?";
+		}
+	}
+	
 		
-	private int performCheckSum(StringBuffer digits) {
+	private int calculateCheckSum(String digits) {
 		int sum = 0;
 		for(int i=0; i<9; i++) {
 			int numericValue = Character.getNumericValue(digits.charAt(i));
@@ -129,10 +119,53 @@ public class Scanner {
 	}
 	
 	
-	public String fixIllString(StringBuffer digits) {
+	private String fixBuffer(String buffer) {
+		
+		if(calculateCheckSum(buffer) == 0) {
+			responses.add(buffer);
+			String response = formatResponse();
+			responses.clear();
+			return response;
+		} else
+			return "";
+	}
+	
+	
+	private String findSubstitute(String buffer, int idx) {
 		
 		
-		return "010000001";
+		
+		return "";
+	}
+	
+	
+	public int measureDistance(String digit1, String digit2) throws Exception {
+		
+		if(digit1.length() != digit2.length())
+			throw new Exception();
+		
+		if(digit1.length() != 9)
+			throw new Exception();
+		
+		int distance = 0;
+		for(int i = 0; i < 9 ; i++) {
+			
+			if(digit1.charAt(i) != digit2.charAt(i))
+				distance++;
+		}
+		
+		return distance;
+	}
+	
+	
+	private String formatResponse() {
+		
+		if(responses.size() == 1) {
+			
+			return responses.get(0);
+		}
+
+		return null;
 	}
 	
 }

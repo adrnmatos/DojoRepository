@@ -20,6 +20,22 @@ class ScannerTest {
 		
 	
 	@Test
+	public void teste() throws Exception {
+		
+		String digit1 = "   "+
+		          " _|"+
+		          "   ";
+		
+		String digit2 = "   "+
+		          "|_|"+
+		          "  |";
+		
+		
+		System.out.println(scanner.measureDistance(digit1, digit2));
+	}
+	
+	@Disabled
+	@Test
 	public void scan_validInput_returnExpectedResult() {
 		
 		assertAll(
