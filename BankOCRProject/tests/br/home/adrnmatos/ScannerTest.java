@@ -3,6 +3,7 @@ package br.home.adrnmatos;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -16,8 +17,8 @@ class ScannerTest {
 	
 		scanner = new Scanner();
 	}
-		
 	
+	@Disabled
 	@Test
 	public void scan_validInput_returnExpectedResult() {
 		
@@ -113,7 +114,7 @@ class ScannerTest {
 		
 	}
 
-	
+	@Disabled
 	@Test
 	public void scan_ambiguousInput_returnIllResult() {
 		
@@ -127,6 +128,44 @@ class ScannerTest {
 					                                         "  ||_  _|  | _||_|  ||_| _ "))
 		);
 	}
+	
+	@Test
+	public void scanDistance_equalStrings_returnZero() {
+		
+		String string1 = " _ " + "| |" + "|_|";
+		String string2 = " _ " + "| |" + "|_|";
+		
+		int result = scanner.distance(string1, string2);
+		
+		assertEquals(0, result);
+		
+	}
+	
+	@Test
+	public void scanDistance_1traceUnequalStrings_returnOne() {
 
+		String string1 = " _ " + "| |" + "|_|";
+		String string2 = " _ " + "|_|" + "|_|";
+		
+		int result = scanner.distance(string1, string2);
+		
+		assertEquals(1, result);
+
+	}
+	
+	
+	@Test
+	public void scanDistance_moreThan1traceUnequalStrings_returnOne() {
+
+		String string1 = " _ " + "  |" + "|_|";
+		String string2 = " _|" + "| |" + "|_|";
+		
+		int result = scanner.distance(string1, string2);
+		
+		assertEquals(2, result);
+
+	}
+	
+	 
 	
 }

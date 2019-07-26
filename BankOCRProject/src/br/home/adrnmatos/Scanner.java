@@ -47,12 +47,15 @@ public class Scanner {
 		}
 
 		checkForAccountNumbers(accountNum);
-		return formatResponse();
-
+		
+		String responseString = formatResponse();
+		responses.clear();
+		
+		return responseString;
 	}
 
 	
-	private String extractDigit(int i) {
+	public String extractDigit(int i) {
 
 		StringBuffer digit = new StringBuffer();
 
@@ -66,7 +69,7 @@ public class Scanner {
 		return digit.toString();
 	}
 
-	private String identifyDigit(String digit) {
+	public String identifyDigit(String digit) {
 
 		switch (digit) {
 		case zero:
@@ -95,20 +98,20 @@ public class Scanner {
 	}
 
 
-	private void checkForAccountNumbers(StringBuffer buffer) throws Exception {
+	public void checkForAccountNumbers(StringBuffer buffer) throws Exception {
 
 		if (calculateCheckSum(buffer.toString()) == 0)
 			responses.add(buffer.toString());
 		
 		else
-			if (buffer.indexOf("?") == -1)
+			if (buffer.indexOf("?") != -1)
 				checkWhenInvalidChars(buffer);
 			else 
 				checkWhenNotInvalidChars(buffer);
 	}
 	
 
-	private void checkWhenInvalidChars(StringBuffer account) {
+	public void checkWhenInvalidChars(StringBuffer account) {
 
 		if(calculateCheckSum(account.toString()) == 0) {
 			responses.add(account.toString());
@@ -129,20 +132,23 @@ public class Scanner {
 	}
 
 	
-	private void checkWhenNotInvalidChars(StringBuffer account) {
+	public void checkWhenNotInvalidChars(StringBuffer account) {
 
 		if(calculateCheckSum(account.toString()) == 0) {
 			responses.add(account.toString());
 			return;
 		}
+		
 
 		for(int i = 0; i < 9; i++) {
-			for(String digit : digits) {
+			for(int j = 0; j < 9; j++) {
 				
-				if(distance(extractDigit(i), digit) == 1 && extractDigit(i).compareTo(digit) != 0) {
-					account.replace(i, i + 1, digit);
-					if(calculateCheckSum(account.toString()) == 0) {
-						responses.add(account.toString());
+				if(distance(extractDigit(i), digits[j]) == 1) {
+					StringBuffer possibleAccount = new StringBuffer(account);
+					
+					possibleAccount.replace(i, i + 1, Integer.toString(j));
+					if(calculateCheckSum(possibleAccount.toString()) == 0) {
+						responses.add(possibleAccount.toString());
 						return;
 					}
 				}
@@ -152,47 +158,48 @@ public class Scanner {
 	}
 
 	
-	private int distance(String digit1, String digit2) {
+	public int distance(String digit1, String digit2) {
 	
 		if(digit1.length() != digit2.length())
 			return -1;
 		
-		int diferenceIndex = indexOfDifference(digit1, digit2);
-		if(diferenceIndex != digit1.length()) {
-			String subString1 = digit1.substring(diferenceIndex);
-			String subString2 = digit2.substring(diferenceIndex);
-			if(indexOfDifference(subString1, subString2) == -1)
+		int diffIndex = indexOfDifference(digit1, digit2);
+		if(diffIndex == -1)
+			return -1;
+		
+		if(diffIndex == 100)
+			return 0;
+
+		else {
+			String subString1 = digit1.substring(diffIndex+1);
+			String subString2 = digit2.substring(diffIndex+1);
+			if(indexOfDifference(subString1, subString2) == 100)
 				return 1;
 		}
 		
-		return 0;
+		return 2;
 	}
 	
 	public int indexOfDifference(String str1, String str2) {
-		if (str1 == str2) {
-			return -1;
+		if (str1.equals(str2)) {
+			return 100;
 		}
 		
 		if (str1 == null || str2 == null) {
-			return 0;
+			return -1;
 		}
 		
-		int i;
-		for (i = 0; i < str1.length() && i < str2.length(); ++i) {
+		for (int i = 0; i < str1.length(); ++i) {
 			if (str1.charAt(i) != str2.charAt(i)) {
-				break;
+				return i;
 			}
-		}
-		
-		if (i < str2.length() || i < str1.length()) {
-			return i;
 		}
 		
 		return -1;
 	}
 	
 	
-	private int calculateCheckSum(String digits) {
+	public int calculateCheckSum(String digits) {
 		int sum = 0;
 		for (int i = 0; i < 9; i++) {
 			int numericValue = Character.getNumericValue(digits.charAt(i));
@@ -205,7 +212,7 @@ public class Scanner {
 	}
 
 
-	private String formatResponse() {
+	public String formatResponse() {
 
 		if (responses.size() == 1) {
 			if (responses.get(0).contains("?"))
