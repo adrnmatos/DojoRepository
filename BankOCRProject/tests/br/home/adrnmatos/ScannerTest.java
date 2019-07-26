@@ -3,7 +3,6 @@ package br.home.adrnmatos;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -19,22 +18,6 @@ class ScannerTest {
 	}
 		
 	
-	@Test
-	public void teste() throws Exception {
-		
-		String digit1 = "   "+
-		          " _|"+
-		          "   ";
-		
-		String digit2 = "   "+
-		          "|_|"+
-		          "  |";
-		
-		
-		System.out.println(scanner.measureDistance(digit1, digit2));
-	}
-	
-	@Disabled
 	@Test
 	public void scan_validInput_returnExpectedResult() {
 		
@@ -74,7 +57,6 @@ class ScannerTest {
 		
 	}
 	
-	@Disabled
 	@Test
 	public void scan_invalidInput_returnFixedResult() {
 		
@@ -130,8 +112,8 @@ class ScannerTest {
 		);
 		
 	}
+
 	
-	@Disabled
 	@Test
 	public void scan_ambiguousInput_returnIllResult() {
 		
