@@ -12,7 +12,7 @@ class ScannerTest {
 	Scanner scanner;
 	
 	@BeforeEach
-	void init() {
+	public void init() {
 	
 		scanner = new Scanner();
 	}

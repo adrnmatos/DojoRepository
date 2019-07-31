@@ -5,27 +5,27 @@ import java.util.List;
 
 public class Scanner {
 
-	final String zero = " _ " + "| |" + "|_|";
+	private final String zero = " _ " + "| |" + "|_|";
 
-	final String um = "   " + "  |" + "  |";
+	private final String um = "   " + "  |" + "  |";
 
-	final String dois = " _ " + " _|" + "|_ ";
+	private final String dois = " _ " + " _|" + "|_ ";
 
-	final String tres = " _ " + " _|" + " _|";
+	private final String tres = " _ " + " _|" + " _|";
 
-	final String quatro = "   " + "|_|" + "  |";
+	private final String quatro = "   " + "|_|" + "  |";
 
-	final String cinco = " _ " + "|_ " + " _|";
+	private final String cinco = " _ " + "|_ " + " _|";
 
-	final String seis = " _ " + "|_ " + "|_|";
+	private final String seis = " _ " + "|_ " + "|_|";
 
-	final String sete = " _ " + "  |" + "  |";
+	private final String sete = " _ " + "  |" + "  |";
 
-	final String oito = " _ " + "|_|" + "|_|";
+	private final String oito = " _ " + "|_|" + "|_|";
 
-	final String nove = " _ " + "|_|" + " _|";
+	private final String nove = " _ " + "|_|" + " _|";
 	
-	final String[] digits = {zero, um, dois, tres, quatro, cinco, seis, sete, oito, nove};
+	private final String[] digits = {zero, um, dois, tres, quatro, cinco, seis, sete, oito, nove};
 	
 	private String input;
 	private List<String> responses = new ArrayList<>();
@@ -54,7 +54,7 @@ public class Scanner {
 	}
 
 	
-	public String extractDigit(int i) {
+	private String extractDigit(int i) {
 
 		StringBuffer digit = new StringBuffer();
 
@@ -68,7 +68,7 @@ public class Scanner {
 		return digit.toString();
 	}
 
-	public String identifyDigit(String digit) {
+	private String identifyDigit(String digit) {
 
 		switch (digit) {
 		case zero:
@@ -97,7 +97,7 @@ public class Scanner {
 	}
 
 
-	public void checkForAccountNumbers(String account) throws Exception {
+	private void checkForAccountNumbers(String account) throws Exception {
 
 		if (calculateCheckSum(account) == 0)
 			responses.add(account.toString());
@@ -110,7 +110,7 @@ public class Scanner {
 	}
 	
 
-	public void checkWhenInvalidChars(String account) {
+	private void checkWhenInvalidChars(String account) {
 
 		if(calculateCheckSum(account) == 0) {
 			responses.add(account);
@@ -132,7 +132,7 @@ public class Scanner {
 	}
 
 	
-	public void checkWhenNotInvalidChars(String account) {
+	private void checkWhenNotInvalidChars(String account) {
 
 		for(int i = 0; i < 9; i++) {
 
@@ -152,7 +152,7 @@ public class Scanner {
 	}
 
 	
-	public int distance(String digit1, String digit2) {
+	private int distance(String digit1, String digit2) {
 	
 		if(digit1.length() != digit2.length())
 			return -1;
@@ -174,7 +174,7 @@ public class Scanner {
 		return 2;
 	}
 	
-	public int indexOfDifference(String str1, String str2) {
+	private int indexOfDifference(String str1, String str2) {
 		if (str1.equals(str2)) {
 			return 100;
 		}
@@ -193,7 +193,7 @@ public class Scanner {
 	}
 	
 	
-	public int calculateCheckSum(String digits) {
+	private int calculateCheckSum(String digits) {
 		int sum = 0;
 		for (int i = 0; i < 9; i++) {
 			int numericValue = Character.getNumericValue(digits.charAt(i));
@@ -206,7 +206,7 @@ public class Scanner {
 	}
 
 
-	public String formatResponse(String account) {
+	private String formatResponse(String account) {
 
 		if(responses.size() == 0)
 			return (account + " ILL");
