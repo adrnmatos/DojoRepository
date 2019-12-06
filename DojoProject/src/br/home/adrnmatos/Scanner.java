@@ -5,30 +5,29 @@ import java.util.List;
 
 public class Scanner {
 
-	final String zero = " _ " + "| |" + "|_|";
+	private final String zero = " _ " + "| |" + "|_|";
 
-	final String um = "   " + "  |" + "  |";
+	private final String um = "   " + "  |" + "  |";
 
-	final String dois = " _ " + " _|" + "|_ ";
+	private final String dois = " _ " + " _|" + "|_ ";
 
-	final String tres = " _ " + " _|" + " _|";
+	private final String tres = " _ " + " _|" + " _|";
 
-	final String quatro = "   " + "|_|" + "  |";
+	private final String quatro = "   " + "|_|" + "  |";
 
-	final String cinco = " _ " + "|_ " + " _|";
+	private final String cinco = " _ " + "|_ " + " _|";
 
-	final String seis = " _ " + "|_ " + "|_|";
+	private final String seis = " _ " + "|_ " + "|_|";
 
-	final String sete = " _ " + "  |" + "  |";
+	private final String sete = " _ " + "  |" + "  |";
 
-	final String oito = " _ " + "|_|" + "|_|";
+	private final String oito = " _ " + "|_|" + "|_|";
 
-	final String nove = " _ " + "|_|" + " _|";
+	private final String nove = " _ " + "|_|" + " _|";
 	
-	final String[] digits = {zero, um, dois, tres, quatro, cinco, seis, sete, oito, nove};
+	private final String[] digits = {zero, um, dois, tres, quatro, cinco, seis, sete, oito, nove};
 	
 	private String input;
-
 	private List<String> responses = new ArrayList<>();
 		
 	public String scan(String input) throws Exception {
@@ -38,24 +37,24 @@ public class Scanner {
 		
 		this.input = input;
 
-		StringBuffer accountNum = new StringBuffer();
+		StringBuffer account = new StringBuffer();
 
 		for (int i = 0; i < 9; i++) {			
 			String extractedDigit = extractDigit(i);
 			String identifiedDigit = identifyDigit(extractedDigit);
-			accountNum.append(identifiedDigit);
+			account.append(identifiedDigit);
 		}
-
-		checkForAccountNumbers(accountNum);
 		
-		String responseString = formatResponse();
+		checkForAccountNumbers(account.toString());
+		
+		String responseString = formatResponse(account.toString());
 		responses.clear();
 		
 		return responseString;
 	}
 
 	
-	public String extractDigit(int i) {
+	private String extractDigit(int i) {
 
 		StringBuffer digit = new StringBuffer();
 
@@ -69,7 +68,7 @@ public class Scanner {
 		return digit.toString();
 	}
 
-	public String identifyDigit(String digit) {
+	private String identifyDigit(String digit) {
 
 		switch (digit) {
 		case zero:
@@ -98,23 +97,23 @@ public class Scanner {
 	}
 
 
-	public void checkForAccountNumbers(StringBuffer buffer) throws Exception {
+	private void checkForAccountNumbers(String account) throws Exception {
 
-		if (calculateCheckSum(buffer.toString()) == 0)
-			responses.add(buffer.toString());
+		if (calculateCheckSum(account) == 0)
+			responses.add(account.toString());
 		
 		else
-			if (buffer.indexOf("?") != -1)
-				checkWhenInvalidChars(buffer);
+			if (account.indexOf("?") != -1)
+				checkWhenInvalidChars(account);
 			else 
-				checkWhenNotInvalidChars(buffer);
+				checkWhenNotInvalidChars(account);
 	}
 	
 
-	public void checkWhenInvalidChars(StringBuffer account) {
+	private void checkWhenInvalidChars(String account) {
 
-		if(calculateCheckSum(account.toString()) == 0) {
-			responses.add(account.toString());
+		if(calculateCheckSum(account) == 0) {
+			responses.add(account);
 			return;
 		}
 		
@@ -122,26 +121,22 @@ public class Scanner {
 		
 		if(index != -1) {
 
-			for(String digit : digits) {
-				if(distance(extractDigit(index), digit) == 1) {
-					account.replace(index, index + 1, digit);
-					checkWhenInvalidChars(account);
+			for(int i = 0; i < 10; i++) {
+				if(distance(extractDigit(index), digits[i]) == 1) {
+					StringBuffer possibleAccount = new StringBuffer(account);
+					possibleAccount.replace(index, index + 1, Integer.toString(i));
+					checkWhenInvalidChars(possibleAccount.toString());
 				}
 			}
 		}
 	}
 
 	
-	public void checkWhenNotInvalidChars(StringBuffer account) {
-
-		if(calculateCheckSum(account.toString()) == 0) {
-			responses.add(account.toString());
-			return;
-		}
-		
+	private void checkWhenNotInvalidChars(String account) {
 
 		for(int i = 0; i < 9; i++) {
-			for(int j = 0; j < 9; j++) {
+
+			for(int j = 0; j < 10; j++) {
 				
 				if(distance(extractDigit(i), digits[j]) == 1) {
 					StringBuffer possibleAccount = new StringBuffer(account);
@@ -149,7 +144,6 @@ public class Scanner {
 					possibleAccount.replace(i, i + 1, Integer.toString(j));
 					if(calculateCheckSum(possibleAccount.toString()) == 0) {
 						responses.add(possibleAccount.toString());
-						return;
 					}
 				}
 			}
@@ -158,7 +152,7 @@ public class Scanner {
 	}
 
 	
-	public int distance(String digit1, String digit2) {
+	private int distance(String digit1, String digit2) {
 	
 		if(digit1.length() != digit2.length())
 			return -1;
@@ -180,7 +174,7 @@ public class Scanner {
 		return 2;
 	}
 	
-	public int indexOfDifference(String str1, String str2) {
+	private int indexOfDifference(String str1, String str2) {
 		if (str1.equals(str2)) {
 			return 100;
 		}
@@ -199,7 +193,7 @@ public class Scanner {
 	}
 	
 	
-	public int calculateCheckSum(String digits) {
+	private int calculateCheckSum(String digits) {
 		int sum = 0;
 		for (int i = 0; i < 9; i++) {
 			int numericValue = Character.getNumericValue(digits.charAt(i));
@@ -212,22 +206,23 @@ public class Scanner {
 	}
 
 
-	public String formatResponse() {
+	private String formatResponse(String account) {
 
-		if (responses.size() == 1) {
-			if (responses.get(0).contains("?"))
-				return (responses.get(0) + " ILL");
+		if(responses.size() == 0)
+			return (account + " ILL");
+		
+		if(responses.size() == 1)
 			return responses.get(0);
-		}
 
 		else {
 
-			StringBuffer answerStr = new StringBuffer(this.input + " AMB ['");
+			StringBuffer answerStr = new StringBuffer(account + " AMB ['");
 
-			for (String account : responses) {
-				answerStr.append(account);
+			for (String response : responses) {
+				answerStr.append(response);
 				answerStr.append("', '");
 			}
+			
 			answerStr.delete(answerStr.length() - 3, answerStr.length());
 			answerStr.append("]");
 			return answerStr.toString();
