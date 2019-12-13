@@ -9,19 +9,21 @@ body {
    padding:0;
    height:100%;   
 }
+
 #content {
- 
    min-height:93%;
    position:relative;
 }
+
 #header {
    padding:0px;
 }
+
 #body {
- 
-   padding:10px;
+    padding:10px;
    padding-bottom:60px;
 }
+
 #footer {
    position:absolute;
    bottom:0;
