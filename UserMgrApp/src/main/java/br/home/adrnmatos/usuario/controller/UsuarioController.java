@@ -65,7 +65,6 @@ public class UsuarioController implements Serializable {
 		
 		else {
 			
-			System.out.println("*****************************" + usuarioModel.getUsuario() + "************" + usuarioModel.getSenha());
 			usuarioEntity = usuarioRepository.validaUsuario(usuarioModel);
 			
 			if(usuarioEntity != null) {
