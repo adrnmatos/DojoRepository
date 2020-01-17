@@ -11,14 +11,35 @@
 	
 	<h:body>
 	
-		<p:spinner/>
+	<p:menubar>
+    	<p:submenu label="File">
+        	<p:submenu label="New">
+            	<p:menuitem value="Project" url="#"/>
+            	<p:menuitem value="Other" url="#"/>
+        	</p:submenu>
+        	<p:menuitem value="Open" url="#"></p:menuitem>
+        	<p:menuitem value="Quit" url="#"></p:menuitem>
+    	</p:submenu>
+    
+    	<p:submenu label="Edit">
+        	<p:menuitem value="Undo" url="#"></p:menuitem>
+        	<p:menuitem value="Redo" url="#"></p:menuitem>
+    	</p:submenu>
+    
+    	<p:submenu label="Help">
+        	<p:menuitem label="Contents" url="#"></p:menuitem>
+        	<p:submenu label="Search">
+            	<p:submenu label="Text">
+                	<p:menuitem value="Workspace" url="#" />
+            	</p:submenu>
+            <p:menuitem value="File" url="#" />
+        	</p:submenu>
+    	</p:submenu>
+	</p:menubar>
 	
 	
-	
+	<p:textEditor/>
+			
 	</h:body>
-
-
-
-
-
+	
 </html>
