@@ -21,6 +21,7 @@
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>
@@ -29,7 +30,14 @@
   <listener>
     <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
   </listener>
+  
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>
+  
+  <context-param>
+  	<param-name>facelets.LIBRARIES</param-name>
+  	<param-value>/WEB-INF/LocalDateTimeConverter-taglib.xml</param-value>
+  </context-param>
+
 </web-app>
