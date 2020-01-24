@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+	<h:head>
+		<title><ui:insert name="title">Default title</ui:insert></title>
+	</h:head>
+	
+	<h:body>
+		
+		<div id="top">
+		    <ui:insert name="top">
+		    	<ui:include src="../planetarium/header.xhtml"/>
+		    </ui:insert>
+		</div>
+
+		
+		<div id="leftBar" style="width:25%">
+		  <ui:insert name="leftBar">
+				<ui:include src="../planetarium/sidebarLeft.xhtml"/> 
+		  </ui:insert>
+		</div>
+		
+		
+		<div id="content">
+		  <ui:insert name="content"/>
+		</div>
+			
+	
+	</h:body>
+
+</html>
