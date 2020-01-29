@@ -47,4 +47,18 @@ public class ConsultarPessoaController implements Serializable {
 	public void init() {
 		this.pessoas = pessoaRepository.getPessoas();
 	}
+	
+	public void editar(PessoaModel pessoaModel) {
+		
+		pessoaModel.setSexo(pessoaModel.getSexo().substring(0, 1));
+		this.pessoaModel = pessoaModel;
+	}
+	
+	public void alterarRegistro() {
+		
+		this.pessoaRepository.alterarRegistro(this.pessoaModel);
+		
+		this.init();
+	}
+	
 }
