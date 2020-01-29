@@ -95,16 +95,14 @@ public class PessoaRepository {
 		
 		entityManager = Uteis.jpaEntityManager();
 		
-//		PessoaEntity pessoaEntity = getPessoa(pessoaModel.getCodigo());
-		
-		PessoaEntity pessoaEntity = entityManager.find(PessoaEntity.class, pessoaModel.getCodigo());
+		PessoaEntity pessoaEntity = getPessoa(pessoaModel.getCodigo());
 		
 		pessoaEntity.setEmail(pessoaModel.getEmail());
 		pessoaEntity.setEndereco(pessoaModel.getEndereco());
 		pessoaEntity.setNome(pessoaModel.getNome());
 		pessoaEntity.setSexo(pessoaModel.getSexo());
 		
-		entityManager.merge(pessoaEntity);
+		entityManager.refresh(pessoaEntity);
 		
 	}
 	
