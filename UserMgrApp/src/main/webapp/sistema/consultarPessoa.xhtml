@@ -70,7 +70,14 @@
 										update="dialog-modal-editar"/>
 				</p:column>
 
-				<p:column headerText="" style="width:25px;"></p:column>
+				<p:column headerText="" style="width:25px;">
+				
+					<p:commandButton icon="ui-icon-trash"
+										title="Excluir Pessoa"
+										ajax="true"
+										actionListener="#{consultarPessoaController.excluirPessoa(pessoa)}"
+										update="@form"/>				
+				</p:column>
 
 			</p:dataTable>
 

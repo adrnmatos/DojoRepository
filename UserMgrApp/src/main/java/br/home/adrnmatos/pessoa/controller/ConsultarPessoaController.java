@@ -61,4 +61,11 @@ public class ConsultarPessoaController implements Serializable {
 		this.init();
 	}
 	
+	public void excluirPessoa(PessoaModel pessoaModel) {
+		
+		this.pessoaRepository.excluirRegistro(pessoaModel.getCodigo());
+		
+		this.pessoas.remove(pessoaModel);
+	}
+	
 }

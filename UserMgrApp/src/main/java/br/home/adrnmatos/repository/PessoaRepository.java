@@ -105,6 +105,15 @@ public class PessoaRepository {
 		entityManager.refresh(pessoaEntity);
 		
 	}
+
+	public void excluirRegistro(int codigo) {
+
+		entityManager = Uteis.jpaEntityManager();
+		
+		PessoaEntity pessoaEntity = getPessoa(codigo);
+		
+		entityManager.remove(pessoaEntity);
+	}
 	
 	
 }
