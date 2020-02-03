@@ -3,6 +3,7 @@ package br.home.adrnmatos.repository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Hashtable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -113,6 +114,33 @@ public class PessoaRepository {
 		PessoaEntity pessoaEntity = getPessoa(codigo);
 		
 		entityManager.remove(pessoaEntity);
+	}
+	
+	public Hashtable<String, Integer> getOrigemPessoa() {
+		
+		Hashtable<String, Integer> hashtableRegistros = new Hashtable<String, Integer>();
+		
+		entityManager = Uteis.jpaEntityManager();
+		
+		Query query = entityManager.createNamedQuery("PessoaEntity.groupByOrigemCadastro");
+		
+		@SuppressWarnings("unchecked")
+		Collection<Object[]> collectionRegistros = query.getResultList();
+		
+		for(Object[] objects : collectionRegistros) {
+			
+			String tipoPessoa = (String)objects[0];
+			int totalRegistros = ((Number)objects[1]).intValue();
+			
+			if(tipoPessoa.equals("X"))
+				tipoPessoa = "XML";
+			else
+				tipoPessoa = "INPUT";
+			
+			hashtableRegistros.put(tipoPessoa, totalRegistros);
+		}
+		
+		return hashtableRegistros;
 	}
 	
 	
