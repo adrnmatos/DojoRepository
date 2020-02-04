@@ -61,9 +61,9 @@
 	
 	<!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
 	<dependency>
-	    <groupId>org.hibernate.orm</groupId>
+	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-core</artifactId>
-	    <version>6.0.0.Alpha3</version>
+	    <version>5.4.10.Final</version>
 	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->

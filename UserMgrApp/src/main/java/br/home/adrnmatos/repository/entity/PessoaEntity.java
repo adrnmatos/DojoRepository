@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Table(name = "tb_pessoa")
 @NamedQueries({
 	@NamedQuery(name = "PessoaEntity.findAll", query = "SELECT p FROM PessoaEntity p"),
-	@NamedQuery(name = "PessoaEntity.groupByOrigemCadastro", query = "SELECT p.origemCadastro, count(p) as total FROM PessoaEntity p GROUP By p.origemCadastro")
+	@NamedQuery(name = "PessoaEntity.groupByOrigemCadastro", query = "SELECT p.origemCadastro, count(p.origemCadastro) as total FROM PessoaEntity p GROUP By p.origemCadastro")
 })
 public class PessoaEntity {
 
